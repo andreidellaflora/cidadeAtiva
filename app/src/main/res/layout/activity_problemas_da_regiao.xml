@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFDF7"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="25dp">
+
+        <!-- ================================================= -->
+        <!-- CABEÇALHO -->
+        <!-- ================================================= -->
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="175dp"
+            android:background="#FFF8E6">
+
+            <!-- IMAGEM DECORATIVA -->
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="175dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/cidadeativa_logo_corrigido"
+                android:alpha="0.14"
+                android:contentDescription="CidadeAtiva" />
+
+            <!-- TÍTULO -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Problemas da região"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:textColor="#222222"
+                    android:gravity="center" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:text="Problemas registrados pelos moradores"
+                    android:textSize="14sp"
+                    android:textColor="#555555"
+                    android:gravity="center" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <!-- ================================================= -->
+        <!-- FAIXA AMARELA -->
+        <!-- ================================================= -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="18dp"
+            android:background="#F4C51B"
+            android:gravity="center"
+            android:text="///  ///  ///  ///  ///  ///  ///  ///"
+            android:textColor="#FFF8D8"
+            android:textSize="11sp"
+            android:singleLine="true" />
+
+        <!-- ================================================= -->
+        <!-- ÁREA DOS FILTROS -->
+        <!-- ================================================= -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="20dp"
+            android:text="Filtrar problemas"
+            android:textColor="#333333"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="18dp"
+            android:scrollbars="none"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- TODOS -->
+
+                <Button
+                    android:id="@+id/btnTodosRegiao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="8dp"
+                    android:minWidth="80dp"
+                    android:text="Todos"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:backgroundTint="#6F4BB8"
+                    android:textAllCaps="false" />
+
+                <!-- BURACOS -->
+
+                <Button
+                    android:id="@+id/btnBuracosRegiao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="Buracos"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:backgroundTint="#E4B51A"
+                    android:textAllCaps="false" />
+
+                <!-- ILUMINAÇÃO -->
+
+                <Button
+                    android:id="@+id/btnIluminacaoRegiao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="Iluminação"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:backgroundTint="#E4B51A"
+                    android:textAllCaps="false" />
+
+                <!-- LIXO -->
+
+                <Button
+                    android:id="@+id/btnLixoRegiao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:text="Lixo"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:backgroundTint="#E4B51A"
+                    android:textAllCaps="false" />
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+        <!-- ================================================= -->
+        <!-- TÍTULO DA LISTA -->
+        <!-- ================================================= -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Ocorrências próximas"
+                android:textColor="#222222"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📍 Região"
+                android:textColor="#777777"
+                android:textSize="13sp" />
+
+        </LinearLayout>
+
+        <!-- ================================================= -->
+        <!-- LISTA -->
+        <!-- ================================================= -->
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:layout_marginTop="12dp"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:id="@+id/listaReclamacoesRegiao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="20dp" />
+
+        </ScrollView>
+
+        <!-- ================================================= -->
+        <!-- RODAPÉ -->
+        <!-- ================================================= -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="18dp"
+            android:layout_marginTop="10dp"
+            android:background="#F4C51B"
+            android:gravity="center"
+            android:text="///  ///  ///  ///  ///  ///  ///"
+            android:textColor="#FFF8D8"
+            android:textSize="10sp" />
+
+    </LinearLayout>
+
+</ScrollView>

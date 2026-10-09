@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "91768407618",
+    "project_id": "cidadeativa-4cdee",
+    "storage_bucket": "cidadeativa-4cdee.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:91768407618:android:201d3aab665994016b4fdb",
+        "android_client_info": {
+          "package_name": "br.com.example.cidadeativa"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDm2Tv_y6p4d4g9XLnlb-Bh090qHd4kb8s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
