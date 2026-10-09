@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFDF7"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingBottom="30dp">
+
+        <!-- ========================================== -->
+        <!-- CABEÇALHO -->
+        <!-- ========================================== -->
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="210dp"
+            android:background="#FFF8E6">
+
+            <!-- FUNDO DECORATIVO -->
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="210dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/cidadeativa_logo_corrigido"
+                android:alpha="0.16"
+                android:contentDescription="CidadeAtiva" />
+
+            <!-- TÍTULO -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Meu Perfil"
+                android:textColor="#222222"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+        </FrameLayout>
+
+        <!-- ========================================== -->
+        <!-- FAIXA AMARELA -->
+        <!-- ========================================== -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="18dp"
+            android:background="#F4C51B"
+            android:gravity="center"
+            android:text="///  ///  ///  ///  ///  ///  ///  ///"
+            android:textColor="#FFF8D8"
+            android:textSize="11sp"
+            android:singleLine="true" />
+
+        <!-- ========================================== -->
+        <!-- ESPAÇO -->
+        <!-- ========================================== -->
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="25dp" />
+
+        <!-- ========================================== -->
+        <!-- FOTO DO USUÁRIO -->
+        <!-- ========================================== -->
+
+        <ImageView
+            android:id="@+id/imgPerfil"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:padding="18dp"
+            android:src="@drawable/ic_launcher_foreground"
+            android:scaleType="centerInside"
+            android:background="@drawable/bg_icon_amarelo"
+            android:elevation="5dp"
+            android:contentDescription="Foto do usuário" />
+
+        <!-- ========================================== -->
+        <!-- NOME -->
+        <!-- ========================================== -->
+
+        <TextView
+            android:id="@+id/txtNome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:gravity="center"
+            android:text="Andrei"
+            android:textColor="#222222"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <!-- ========================================== -->
+        <!-- CARD DE INFORMAÇÕES -->
+        <!-- ========================================== -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="22dp"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:background="@drawable/bg_card_claro"
+            android:elevation="3dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="E-mail"
+                android:textColor="#555555"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:text="E-mail não informado"
+                android:textColor="#222222"
+                android:textSize="17sp" />
+
+        </LinearLayout>
+
+        <!-- ========================================== -->
+        <!-- MINHAS RECLAMAÇÕES -->
+        <!-- ========================================== -->
+
+        <Button
+            android:id="@+id/btnMinhasReclamacoes"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="22dp"
+            android:layout_marginTop="25dp"
+            android:text="MINHAS RECLAMAÇÕES"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:backgroundTint="#6F4BB8"
+            android:textAllCaps="true" />
+
+        <!-- ========================================== -->
+        <!-- SAIR DA CONTA -->
+        <!-- ========================================== -->
+
+        <Button
+            android:id="@+id/btnSair"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="22dp"
+            android:layout_marginTop="12dp"
+            android:text="SAIR DA CONTA"
+            android:textColor="#6F4BB8"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:backgroundTint="#E9DFF8"
+            android:textAllCaps="true" />
+
+        <!-- ========================================== -->
+        <!-- VOLTAR -->
+        <!-- ========================================== -->
+
+        <Button
+            android:id="@+id/btnVoltar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="22dp"
+            android:layout_marginTop="12dp"
+            android:text="VOLTAR"
+            android:textColor="#555555"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:backgroundTint="#EEEEEE"
+            android:textAllCaps="true" />
+
+    </LinearLayout>
+
+</ScrollView>

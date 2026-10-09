@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFDF7"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="30dp">
+
+        <!-- ================================================= -->
+        <!-- CABEÇALHO -->
+        <!-- ================================================= -->
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="#FFF8E6">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/cidadeativa_logo_corrigido"
+                android:alpha="0.15"
+                android:contentDescription="CidadeAtiva" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Detalhes da reclamação"
+                android:textColor="#222222"
+                android:textSize="27sp"
+                android:textStyle="bold" />
+
+        </FrameLayout>
+
+        <!-- ================================================= -->
+        <!-- FAIXA AMARELA -->
+        <!-- ================================================= -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="18dp"
+            android:background="#F4C51B"
+            android:gravity="center"
+            android:text="///  ///  ///  ///  ///  ///  ///  ///"
+            android:textColor="#FFF8D8"
+            android:textSize="11sp"
+            android:singleLine="true" />
+
+        <!-- ================================================= -->
+        <!-- CONTEÚDO -->
+        <!-- ================================================= -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="20dp">
+
+            <!-- ================================================= -->
+            <!-- USUÁRIO -->
+            <!-- ================================================= -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="16dp"
+                android:background="@drawable/bg_card_claro"
+                android:elevation="3dp">
+
+                <TextView
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:gravity="center"
+                    android:text="👤"
+                    android:textSize="30sp"
+                    android:background="@drawable/bg_icon_amarelo" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="14dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Registrado por"
+                        android:textColor="#555555"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/txtUsuario"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Usuário"
+                        android:textColor="#222222"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="5dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- ================================================= -->
+            <!-- TÍTULO DA SEÇÃO -->
+            <!-- ================================================= -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Informações do problema"
+                android:textColor="#333333"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="15dp" />
+
+            <!-- ================================================= -->
+            <!-- TIPO DO PROBLEMA -->
+            <!-- ================================================= -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="18dp"
+                android:background="@drawable/bg_card_claro"
+                android:elevation="2dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tipo do problema"
+                    android:textColor="#555555"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtTipo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Buraco na rua"
+                    android:textColor="#222222"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="7dp" />
+
+            </LinearLayout>
+
+            <!-- ================================================= -->
+            <!-- DESCRIÇÃO -->
+            <!-- ================================================= -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="18dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/bg_card_claro"
+                android:elevation="2dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Descrição"
+                    android:textColor="#555555"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtDescricao"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Descrição do problema"
+                    android:textColor="#333333"
+                    android:textSize="16sp"
+                    android:layout_marginTop="8dp" />
+
+            </LinearLayout>
+
+            <!-- ================================================= -->
+            <!-- LOCALIZAÇÃO -->
+            <!-- ================================================= -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="18dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/bg_card_claro"
+                android:elevation="2dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="📍  Localização"
+                    android:textColor="#555555"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtEndereco"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Endereço encontrado"
+                    android:textColor="#333333"
+                    android:textSize="16sp"
+                    android:layout_marginTop="8dp" />
+
+                <TextView
+                    android:id="@+id/txtCep"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="CEP: Não informado"
+                    android:textColor="#555555"
+                    android:textSize="14sp"
+                    android:layout_marginTop="5dp" />
+
+            </LinearLayout>
+
+            <!-- ================================================= -->
+            <!-- STATUS -->
+            <!-- ================================================= -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Status atual"
+                android:textColor="#555555"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="7dp" />
+
+            <TextView
+                android:id="@+id/txtStatus"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="#D9F5DD"
+                android:gravity="center"
+                android:text="Resolvido"
+                android:textColor="#16852B"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <!-- ================================================= -->
+            <!-- ALTERAR STATUS -->
+            <!-- ================================================= -->
+
+            <Button
+                android:id="@+id/btnStatus"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:layout_marginTop="12dp"
+                android:text="ALTERAR STATUS"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:backgroundTint="#6F4BB8"
+                android:textAllCaps="true" />
+
+            <!-- ================================================= -->
+            <!-- DATA -->
+            <!-- ================================================= -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="18dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/bg_card_claro">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Data da reclamação"
+                    android:textColor="#555555"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtData"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Não informada"
+                    android:textColor="#333333"
+                    android:textSize="16sp"
+                    android:layout_marginTop="7dp" />
+
+            </LinearLayout>
+
+            <!-- ================================================= -->
+            <!-- GOOGLE MAPS -->
+            <!-- ================================================= -->
+
+            <Button
+                android:id="@+id/btnMapa"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp"
+                android:text="🗺  ABRIR NO GOOGLE MAPS"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:backgroundTint="#4285F4"
+                android:textAllCaps="true" />
+
+            <!-- ================================================= -->
+            <!-- EXCLUIR -->
+            <!-- ================================================= -->
+
+            <Button
+                android:id="@+id/btnExcluir"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="12dp"
+                android:text="EXCLUIR RECLAMAÇÃO"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:backgroundTint="#D9534F"
+                android:textAllCaps="true" />
+
+            <!-- ================================================= -->
+            <!-- VOLTAR -->
+            <!-- ================================================= -->
+
+            <Button
+                android:id="@+id/btnVoltar"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="12dp"
+                android:text="VOLTAR"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:backgroundTint="#6F4BB8"
+                android:textAllCaps="true" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

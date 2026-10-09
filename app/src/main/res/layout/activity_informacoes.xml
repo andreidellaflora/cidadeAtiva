@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FAF7FC">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CidadeAtiva"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:gravity="center"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Informações"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#6E4DB3"
+            android:gravity="center"
+            android:layout_marginBottom="30dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sobre o CidadeAtiva"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="O CidadeAtiva é um aplicativo criado para facilitar a comunicação entre a população e a comunidade local, permitindo registrar problemas encontrados na região e acompanhar suas reclamações."
+            android:textSize="16sp"
+            android:textColor="#555555"
+            android:lineSpacingExtra="5dp"
+            android:layout_marginBottom="25dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Como funciona?"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:layout_marginBottom="12dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1. Faça uma reclamação&#10;&#10;2. Informe o local do problema&#10;&#10;3. Descreva o problema encontrado&#10;&#10;4. Envie a reclamação&#10;&#10;5. Acompanhe o status da reclamação"
+            android:textSize="16sp"
+            android:textColor="#555555"
+            android:lineSpacingExtra="3dp"
+            android:layout_marginBottom="25dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Status das reclamações"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:layout_marginBottom="12dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🟠 Pendente&#10;&#10;A reclamação foi registrada e ainda não foi analisada.&#10;&#10;🔵 Em análise&#10;&#10;A reclamação está sendo analisada.&#10;&#10;🟢 Resolvido&#10;&#10;O problema foi solucionado."
+            android:textSize="16sp"
+            android:textColor="#555555"
+            android:lineSpacingExtra="3dp"
+            android:layout_marginBottom="30dp" />
+
+        <Button
+            android:id="@+id/btnVoltarInformacoes"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="VOLTAR"
+            android:textColor="#6E4DB3"
+            android:backgroundTint="#E9E1F5" />
+
+    </LinearLayout>
+
+</ScrollView>
