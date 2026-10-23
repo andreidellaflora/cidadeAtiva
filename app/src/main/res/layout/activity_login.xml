@@ -1,101 +1,189 @@
-<?xml version="1.0" encoding="utf-8"?>
 
+<?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAF7FC">
+    android:background="#FFF9E9"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="25dp"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="28dp"
+        android:paddingBottom="28dp">
 
-        <TextView
+        <!-- CABEÇALHO -->
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="CidadeAtiva"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:textColor="#333333"
+            android:orientation="vertical"
             android:gravity="center"
-            android:layout_marginTop="50dp"/>
+            android:background="#FFFFFF"
+            android:elevation="3dp"
+            android:padding="24dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="26dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CidadeAtiva"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:textColor="#222222"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Entrar na sua conta"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                android:textColor="#625A49"
+                android:gravity="center"
+                android:layout_marginTop="10dp"/>
+
+            <View
+                android:layout_width="65dp"
+                android:layout_height="4dp"
+                android:background="#FFD32A"
+                android:layout_marginTop="16dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Entre e ajude a melhorar sua cidade."
+                android:textSize="14sp"
+                android:textColor="#777064"
+                android:gravity="center"
+                android:layout_marginTop="12dp"/>
+
+        </LinearLayout>
+
+        <!-- CARTÃO DE LOGIN -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#FFFFFF"
+            android:padding="20dp"
+            android:elevation="3dp">
+
+            <!-- E-MAIL -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="E-mail"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#292929"
+                android:layout_marginBottom="8dp"/>
+
+            <EditText
+                android:id="@+id/edtEmailLogin"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:hint="Digite seu e-mail"
+                android:inputType="textEmailAddress"
+                android:singleLine="true"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:textSize="15sp"
+                android:textColor="#292929"
+                android:textColorHint="#8A8478"
+                android:background="#FFF9E9"
+                android:autofillHints="emailAddress"/>
+
+            <!-- SENHA -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Senha"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#292929"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="8dp"/>
+
+            <EditText
+                android:id="@+id/edtSenhaLogin"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:hint="Digite sua senha"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:textSize="15sp"
+                android:textColor="#292929"
+                android:textColorHint="#8A8478"
+                android:background="#FFF9E9"
+                android:autofillHints="password"/>
+
+            <!-- ENTRAR -->
+
+            <Button
+                android:id="@+id/btnEntrar"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:text="ENTRAR"
+                android:textColor="#222222"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:backgroundTint="#FFD32A"
+                android:stateListAnimator="@null"
+                android:elevation="3dp"
+                android:layout_marginTop="28dp"/>
+
+            <!-- CRIAR CONTA -->
+
+            <Button
+                android:id="@+id/btnCriarConta"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="CRIAR CONTA"
+                android:textColor="#292929"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:backgroundTint="#FFF0B8"
+                android:stateListAnimator="@null"
+                android:layout_marginTop="12dp"/>
+
+            <!-- VOLTAR -->
+
+            <Button
+                android:id="@+id/btnVoltarLogin"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:text="VOLTAR"
+                android:textColor="#625A49"
+                android:textSize="13sp"
+                android:backgroundTint="#F3EEDF"
+                android:stateListAnimator="@null"
+                android:layout_marginTop="10dp"/>
+
+        </LinearLayout>
+
+        <!-- RODAPÉ -->
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Entrar na sua conta"
-            android:textSize="21sp"
-            android:textStyle="bold"
-            android:textColor="#555555"
+            android:text="Sua participação transforma a cidade."
+            android:textSize="12sp"
+            android:textColor="#777064"
             android:gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="35dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="E-mail"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:textColor="#444444"/>
-
-        <EditText
-            android:id="@+id/edtEmailLogin"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:hint="Digite seu e-mail"
-            android:inputType="textEmailAddress"
-            android:padding="15dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="20dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Senha"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:textColor="#444444"/>
-
-        <EditText
-            android:id="@+id/edtSenhaLogin"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:hint="Digite sua senha"
-            android:inputType="textPassword"
-            android:padding="15dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="30dp"/>
-
-        <Button
-            android:id="@+id/btnEntrar"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:text="ENTRAR"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
-            android:backgroundTint="#6E4DB3"/>
-
-        <Button
-            android:id="@+id/btnCriarConta"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:text="CRIAR CONTA"
-            android:textColor="#6E4DB3"
-            android:backgroundTint="#E9E1F5"
-            android:layout_marginTop="12dp"/>
-
-        <Button
-            android:id="@+id/btnVoltarLogin"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:text="VOLTAR"
-            android:textColor="#666666"
-            android:backgroundTint="#EEEEEE"
-            android:layout_marginTop="12dp"/>
+            android:layout_marginTop="22dp"
+            android:layout_marginBottom="10dp"/>
 
     </LinearLayout>
 
