@@ -1,35 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAF7FC">
+    android:background="#FFF9E9"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="28dp">
 
-        <!-- ================================================= -->
-        <!-- TÍTULO -->
-        <!-- ================================================= -->
+        <!-- CABECALHO -->
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nova reclamação"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:textColor="#333333"
+            android:orientation="vertical"
             android:gravity="center"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="25dp"/>
+            android:background="#FFFFFF"
+            android:padding="22dp"
+            android:elevation="3dp"
+            android:layout_marginBottom="22dp">
 
-        <!-- ================================================= -->
-        <!-- TIPO -->
-        <!-- ================================================= -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nova reclamação"
+                android:textSize="27sp"
+                android:textStyle="bold"
+                android:textColor="#222222"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ajude a melhorar nossa cidade."
+                android:textSize="14sp"
+                android:textColor="#666052"
+                android:gravity="center"
+                android:layout_marginTop="7dp"/>
+
+            <View
+                android:layout_width="64dp"
+                android:layout_height="4dp"
+                android:background="#FFC928"
+                android:layout_marginTop="14dp"/>
+
+        </LinearLayout>
+
+        <!-- TIPO DO PROBLEMA -->
 
         <TextView
             android:layout_width="match_parent"
@@ -37,41 +61,47 @@
             android:text="Tipo do problema"
             android:textSize="15sp"
             android:textStyle="bold"
-            android:textColor="#444444"
-            android:layout_marginBottom="6dp"/>
+            android:textColor="#292929"
+            android:layout_marginBottom="8dp"/>
 
         <Spinner
             android:id="@+id/spinnerTipo"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="54dp"
+            android:backgroundTint="#D6A900"
+            android:background="#FFFFFF"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:layout_marginBottom="20dp"/>
 
-        <!-- ================================================= -->
-        <!-- DESCRIÇÃO -->
-        <!-- ================================================= -->
+        <!-- DESCRICAO -->
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Descrição"
+            android:text="Descreva o problema"
             android:textSize="15sp"
             android:textStyle="bold"
-            android:textColor="#444444"
-            android:layout_marginBottom="6dp"/>
+            android:textColor="#292929"
+            android:layout_marginBottom="8dp"/>
 
         <EditText
             android:id="@+id/edtDescricao"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:hint="Descreva o problema encontrado"
-            android:gravity="top"
-            android:inputType="textMultiLine"
+            android:layout_height="140dp"
+            android:hint="Conte o que aconteceu e onde..."
+            android:gravity="top|start"
+            android:inputType="textCapSentences|textMultiLine"
+            android:minLines="4"
             android:padding="15dp"
-            android:layout_marginBottom="20dp"/>
+            android:textSize="15sp"
+            android:textColor="#292929"
+            android:textColorHint="#8A8478"
+            android:background="#FFFFFF"
+            android:elevation="1dp"
+            android:layout_marginBottom="22dp"/>
 
-        <!-- ================================================= -->
         <!-- CEP -->
-        <!-- ================================================= -->
 
         <TextView
             android:layout_width="match_parent"
@@ -79,115 +109,183 @@
             android:text="CEP"
             android:textSize="15sp"
             android:textStyle="bold"
-            android:textColor="#444444"
-            android:layout_marginBottom="6dp"/>
+            android:textColor="#292929"
+            android:layout_marginBottom="8dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:layout_marginBottom="22dp">
 
             <EditText
                 android:id="@+id/edtCep"
                 android:layout_width="0dp"
-                android:layout_height="55dp"
+                android:layout_height="54dp"
                 android:layout_weight="1"
                 android:hint="00000-000"
                 android:inputType="number"
                 android:maxLength="9"
-                android:padding="15dp"/>
+                android:singleLine="true"
+                android:paddingStart="14dp"
+                android:paddingEnd="10dp"
+                android:textSize="15sp"
+                android:textColor="#292929"
+                android:textColorHint="#8A8478"
+                android:background="#FFFFFF"/>
 
             <Button
                 android:id="@+id/btnBuscarCep"
-                android:layout_width="wrap_content"
-                android:layout_height="55dp"
+                android:layout_width="112dp"
+                android:layout_height="54dp"
                 android:text="BUSCAR"
-                android:textSize="12sp"
-                android:layout_marginStart="8dp"/>
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="#222222"
+                android:backgroundTint="#FFD32A"
+                android:stateListAnimator="@null"
+                android:elevation="2dp"
+                android:layout_marginStart="10dp"/>
+
         </LinearLayout>
 
-        <!-- ================================================= -->
-        <!-- ENDEREÇO -->
-        <!-- ================================================= -->
+        <!-- LOCALIZACAO -->
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Localização"
+            android:text="Localização do problema"
             android:textSize="15sp"
             android:textStyle="bold"
-            android:textColor="#444444"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="6dp"/>
+            android:textColor="#292929"
+            android:layout_marginBottom="8dp"/>
 
         <TextView
             android:id="@+id/txtEndereco"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="100dp"
+            android:gravity="top|start"
             android:text="O endereço aparecerá aqui"
-            android:textSize="16sp"
-            android:textColor="#555555"
+            android:textSize="14sp"
+            android:textColor="#49453D"
             android:background="#FFFFFF"
-            android:padding="15dp"
-            android:minHeight="90dp"/>
+            android:padding="16dp"
+            android:elevation="1dp"/>
 
-        <!-- ================================================= -->
-        <!-- LOCALIZAÇÃO GPS -->
-        <!-- ================================================= -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Escolha como informar o endereço:"
+            android:textSize="13sp"
+            android:textColor="#777064"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
+
+        <!-- LOCALIZACAO GPS -->
 
         <Button
             android:id="@+id/btnLocalizacao"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="54dp"
             android:text="📍 USAR MINHA LOCALIZAÇÃO"
-            android:layout_marginTop="12dp"/>
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="#222222"
+            android:backgroundTint="#FFD32A"
+            android:stateListAnimator="@null"
+            android:elevation="2dp"/>
 
-        <!-- ================================================= -->
-        <!-- ENDEREÇO MANUAL -->
-        <!-- ================================================= -->
+        <!-- ENDERECO MANUAL -->
 
         <Button
             android:id="@+id/btnEnderecoManual"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="54dp"
             android:text="✏️ DIGITAR ENDEREÇO MANUALMENTE"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="#292929"
+            android:backgroundTint="#FFF0B8"
+            android:stateListAnimator="@null"
+            android:elevation="1dp"
             android:layout_marginTop="10dp"/>
 
-        <!-- ================================================= -->
         <!-- FOTO -->
-        <!-- ================================================= -->
 
-        <Button
-            android:id="@+id/btnFoto"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:text="📷 ADICIONAR FOTO"
-            android:layout_marginTop="20dp"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#FFFFFF"
+            android:padding="15dp"
+            android:elevation="2dp"
+            android:layout_marginTop="24dp">
 
-        <ImageView
-            android:id="@+id/imgFoto"
-            android:layout_width="match_parent"
-            android:layout_height="220dp"
-            android:layout_marginTop="10dp"
-            android:scaleType="centerCrop"
-            android:visibility="gone"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Foto do problema"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#292929"/>
 
-        <!-- ================================================= -->
-        <!-- ENVIAR -->
-        <!-- ================================================= -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Uma foto pode ajudar a identificar a situação."
+                android:textSize="13sp"
+                android:textColor="#777064"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="12dp"/>
+
+            <Button
+                android:id="@+id/btnFoto"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:text="📷 ADICIONAR FOTO"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="#222222"
+                android:backgroundTint="#FFE58A"
+                android:stateListAnimator="@null"/>
+
+            <ImageView
+                android:id="@+id/imgFoto"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:layout_marginTop="12dp"
+                android:scaleType="centerCrop"
+                android:contentDescription="Foto selecionada para a reclamação"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+        <!-- ENVIAR RECLAMACAO -->
 
         <Button
             android:id="@+id/btnEnviar"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:text="ENVIAR RECLAMAÇÃO"
-            android:textColor="@android:color/white"
+            android:textColor="#222222"
             android:textStyle="bold"
-            android:textSize="16sp"
-            android:backgroundTint="#6E4DB3"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="30dp"/>
+            android:textSize="15sp"
+            android:backgroundTint="#FFD32A"
+            android:stateListAnimator="@null"
+            android:elevation="4dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="10dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sua participação ajuda a transformar a cidade."
+            android:textSize="12sp"
+            android:textColor="#777064"
+            android:gravity="center"
+            android:layout_marginBottom="10dp"/>
 
     </LinearLayout>
 
