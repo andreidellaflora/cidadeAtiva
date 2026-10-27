@@ -1,99 +1,364 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAF7FC">
+    android:background="#FFF9E9"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="28dp">
 
-        <TextView
+        <!-- CABECALHO -->
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="CidadeAtiva"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            android:textColor="#333333"
+            android:orientation="vertical"
             android:gravity="center"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="8dp" />
+            android:background="#FFFFFF"
+            android:elevation="3dp"
+            android:padding="22dp"
+            android:layout_marginBottom="22dp">
 
-        <TextView
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CidadeAtiva"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:textColor="#222222"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Informações"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                android:textColor="#B88700"
+                android:gravity="center"
+                android:layout_marginTop="8dp"/>
+
+            <View
+                android:layout_width="64dp"
+                android:layout_height="4dp"
+                android:background="#FFD32A"
+                android:layout_marginTop="14dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Conheça o aplicativo e saiba como participar."
+                android:textSize="14sp"
+                android:textColor="#777064"
+                android:gravity="center"
+                android:layout_marginTop="12dp"/>
+
+        </LinearLayout>
+
+        <!-- SOBRE O CIDADEATIVA -->
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Informações"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:textColor="#6E4DB3"
-            android:gravity="center"
-            android:layout_marginBottom="30dp" />
+            android:orientation="vertical"
+            android:background="#FFFFFF"
+            android:elevation="2dp"
+            android:padding="18dp"
+            android:layout_marginBottom="16dp">
 
-        <TextView
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sobre o CidadeAtiva"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                android:textColor="#292929"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="O CidadeAtiva é um aplicativo criado para facilitar a comunicação entre a população e a comunidade local, permitindo registrar problemas encontrados na região e acompanhar suas reclamações."
+                android:textSize="15sp"
+                android:textColor="#555555"
+                android:lineSpacingExtra="5dp"/>
+
+        </LinearLayout>
+
+        <!-- COMO FUNCIONA -->
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sobre o CidadeAtiva"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#333333"
-            android:layout_marginBottom="10dp" />
+            android:orientation="vertical"
+            android:background="#FFFFFF"
+            android:elevation="2dp"
+            android:padding="18dp"
+            android:layout_marginBottom="16dp">
 
-        <TextView
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Como funciona?"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                android:textColor="#292929"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- ETAPA 1 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="14dp">
+
+                <TextView
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="#292929"
+                    android:background="#FFD32A"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="12dp"
+                    android:text="Faça uma reclamação"
+                    android:textSize="15sp"
+                    android:textColor="#49453D"/>
+
+            </LinearLayout>
+
+            <!-- ETAPA 2 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="14dp">
+
+                <TextView
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:gravity="center"
+                    android:text="2"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="#292929"
+                    android:background="#FFD32A"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="12dp"
+                    android:text="Informe o local do problema"
+                    android:textSize="15sp"
+                    android:textColor="#49453D"/>
+
+            </LinearLayout>
+
+            <!-- ETAPA 3 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="14dp">
+
+                <TextView
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:gravity="center"
+                    android:text="3"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="#292929"
+                    android:background="#FFD32A"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="12dp"
+                    android:text="Descreva o problema encontrado"
+                    android:textSize="15sp"
+                    android:textColor="#49453D"/>
+
+            </LinearLayout>
+
+            <!-- ETAPA 4 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="14dp">
+
+                <TextView
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:gravity="center"
+                    android:text="4"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="#292929"
+                    android:background="#FFD32A"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="12dp"
+                    android:text="Envie a reclamação"
+                    android:textSize="15sp"
+                    android:textColor="#49453D"/>
+
+            </LinearLayout>
+
+            <!-- ETAPA 5 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:gravity="center"
+                    android:text="5"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="#292929"
+                    android:background="#FFD32A"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="12dp"
+                    android:text="Acompanhe o status da reclamação"
+                    android:textSize="15sp"
+                    android:textColor="#49453D"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- STATUS DAS RECLAMACOES -->
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="O CidadeAtiva é um aplicativo criado para facilitar a comunicação entre a população e a comunidade local, permitindo registrar problemas encontrados na região e acompanhar suas reclamações."
-            android:textSize="16sp"
-            android:textColor="#555555"
-            android:lineSpacingExtra="5dp"
-            android:layout_marginBottom="25dp" />
+            android:orientation="vertical"
+            android:background="#FFFFFF"
+            android:elevation="2dp"
+            android:padding="18dp"
+            android:layout_marginBottom="22dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Como funciona?"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#333333"
-            android:layout_marginBottom="12dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Status das reclamações"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                android:textColor="#292929"
+                android:layout_marginBottom="16dp"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="1. Faça uma reclamação&#10;&#10;2. Informe o local do problema&#10;&#10;3. Descreva o problema encontrado&#10;&#10;4. Envie a reclamação&#10;&#10;5. Acompanhe o status da reclamação"
-            android:textSize="16sp"
-            android:textColor="#555555"
-            android:lineSpacingExtra="3dp"
-            android:layout_marginBottom="25dp" />
+            <!-- PENDENTE -->
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Status das reclamações"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#333333"
-            android:layout_marginBottom="12dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="🟠  Pendente"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#49453D"
+                android:layout_marginBottom="6dp"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="🟠 Pendente&#10;&#10;A reclamação foi registrada e ainda não foi analisada.&#10;&#10;🔵 Em análise&#10;&#10;A reclamação está sendo analisada.&#10;&#10;🟢 Resolvido&#10;&#10;O problema foi solucionado."
-            android:textSize="16sp"
-            android:textColor="#555555"
-            android:lineSpacingExtra="3dp"
-            android:layout_marginBottom="30dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="A reclamação foi registrada e ainda não foi analisada."
+                android:textSize="14sp"
+                android:textColor="#666052"
+                android:lineSpacingExtra="3dp"
+                android:layout_marginBottom="18dp"/>
+
+            <!-- EM ANALISE -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="🔵  Em análise"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#49453D"
+                android:layout_marginBottom="6dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="A reclamação está sendo analisada."
+                android:textSize="14sp"
+                android:textColor="#666052"
+                android:lineSpacingExtra="3dp"
+                android:layout_marginBottom="18dp"/>
+
+            <!-- RESOLVIDO -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="🟢  Resolvido"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#49453D"
+                android:layout_marginBottom="6dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="O problema foi solucionado."
+                android:textSize="14sp"
+                android:textColor="#666052"
+                android:lineSpacingExtra="3dp"/>
+
+        </LinearLayout>
+
+        <!-- BOTAO VOLTAR -->
 
         <Button
             android:id="@+id/btnVoltarInformacoes"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="56dp"
             android:text="VOLTAR"
-            android:textColor="#6E4DB3"
-            android:backgroundTint="#E9E1F5" />
+            android:textColor="#222222"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:backgroundTint="#FFD32A"
+            android:stateListAnimator="@null"
+            android:elevation="3dp"
+            android:layout_marginBottom="12dp"/>
 
     </LinearLayout>
 
