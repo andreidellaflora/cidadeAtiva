@@ -15,7 +15,7 @@
         android:paddingTop="20dp"
         android:paddingBottom="28dp">
 
-        <!-- CABECALHO -->
+        <!-- CABEÇALHO -->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -74,7 +74,7 @@
             android:paddingEnd="10dp"
             android:layout_marginBottom="20dp"/>
 
-        <!-- DESCRICAO -->
+        <!-- DESCRIÇÃO -->
 
         <TextView
             android:layout_width="match_parent"
@@ -150,7 +150,7 @@
 
         </LinearLayout>
 
-        <!-- LOCALIZACAO -->
+        <!-- LOCALIZAÇÃO -->
 
         <TextView
             android:layout_width="match_parent"
@@ -183,7 +183,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"/>
 
-        <!-- LOCALIZACAO GPS -->
+        <!-- LOCALIZAÇÃO GPS -->
 
         <Button
             android:id="@+id/btnLocalizacao"
@@ -197,7 +197,7 @@
             android:stateListAnimator="@null"
             android:elevation="2dp"/>
 
-        <!-- ENDERECO MANUAL -->
+        <!-- ENDEREÇO MANUAL -->
 
         <Button
             android:id="@+id/btnEnderecoManual"
@@ -262,7 +262,7 @@
 
         </LinearLayout>
 
-        <!-- ENVIAR RECLAMACAO -->
+        <!-- ENVIAR RECLAMAÇÃO -->
 
         <Button
             android:id="@+id/btnEnviar"
@@ -285,6 +285,22 @@
             android:textSize="12sp"
             android:textColor="#777064"
             android:gravity="center"
+            android:layout_marginBottom="10dp"/>
+
+        <!-- BOTÃO VOLTAR -->
+
+        <Button
+            android:id="@+id/btnVoltarReclamacao"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="VOLTAR"
+            android:textColor="#222222"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:backgroundTint="#FFD32A"
+            android:stateListAnimator="@null"
+            android:elevation="2dp"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="10dp"/>
 
     </LinearLayout>
