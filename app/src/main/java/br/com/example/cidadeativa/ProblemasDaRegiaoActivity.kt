@@ -1,3 +1,4 @@
+
 package br.com.example.cidadeativa
 
 import android.content.Intent
@@ -9,7 +10,6 @@ import android.view.Gravity
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
@@ -26,126 +26,87 @@ class ProblemasDaRegiaoActivity : AppCompatActivity() {
     private lateinit var btnBuracos: Button
     private lateinit var btnIluminacao: Button
     private lateinit var btnLixo: Button
+    private lateinit var btnVoltarRegiao: Button
 
-    private val db =
-        FirebaseFirestore.getInstance()
+    private val db = FirebaseFirestore.getInstance()
 
-    private var listenerReclamacoes:
-            ListenerRegistration? = null
+    private var listenerReclamacoes: ListenerRegistration? = null
 
-    private var documentosAtuais:
-            List<DocumentSnapshot> = emptyList()
+    private var documentosAtuais: List<DocumentSnapshot> = emptyList()
 
-    private var filtroAtual =
-        "Todos"
+    private var filtroAtual = "Todos"
 
-    override fun onCreate(
-        savedInstanceState: Bundle?
-    ) {
-
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(
-            R.layout.activity_problemas_da_regiao
-        )
+        setContentView(R.layout.activity_problemas_da_regiao)
 
-        // ==========================================
         // COMPONENTES
-        // ==========================================
 
         listaReclamacoes =
-            findViewById(
-                R.id.listaReclamacoesRegiao
-            )
+            findViewById(R.id.listaReclamacoesRegiao)
 
         btnTodos =
-            findViewById(
-                R.id.btnTodosRegiao
-            )
+            findViewById(R.id.btnTodosRegiao)
 
         btnBuracos =
-            findViewById(
-                R.id.btnBuracosRegiao
-            )
+            findViewById(R.id.btnBuracosRegiao)
 
         btnIluminacao =
-            findViewById(
-                R.id.btnIluminacaoRegiao
-            )
+            findViewById(R.id.btnIluminacaoRegiao)
 
         btnLixo =
-            findViewById(
-                R.id.btnLixoRegiao
-            )
+            findViewById(R.id.btnLixoRegiao)
 
-        // ==========================================
+        btnVoltarRegiao =
+            findViewById(R.id.btnVoltarRegiao)
+
+        // BOTÃO VOLTAR
+
+        btnVoltarRegiao.setOnClickListener {
+            finish()
+        }
+
         // FILTRO TODOS
-        // ==========================================
 
         btnTodos.setOnClickListener {
-
-            filtroAtual =
-                "Todos"
-
+            filtroAtual = "Todos"
             atualizarBotoes()
-
             mostrarReclamacoes()
         }
 
-        // ==========================================
         // FILTRO BURACOS
-        // ==========================================
 
         btnBuracos.setOnClickListener {
-
-            filtroAtual =
-                "Buraco na rua"
-
+            filtroAtual = "Buraco na rua"
             atualizarBotoes()
-
             mostrarReclamacoes()
         }
 
-        // ==========================================
         // FILTRO ILUMINAÇÃO
-        // ==========================================
 
         btnIluminacao.setOnClickListener {
-
-            filtroAtual =
-                "Iluminação pública"
-
+            filtroAtual = "Iluminação pública"
             atualizarBotoes()
-
             mostrarReclamacoes()
         }
 
-        // ==========================================
         // FILTRO LIXO
-        // ==========================================
 
         btnLixo.setOnClickListener {
-
-            filtroAtual =
-                "Lixo acumulado"
-
+            filtroAtual = "Lixo acumulado"
             atualizarBotoes()
-
             mostrarReclamacoes()
         }
 
         atualizarBotoes()
 
-        // ==========================================
-        // BUSCAR TODAS AS RECLAMAÇÕES
-        // ==========================================
+        // BUSCAR RECLAMAÇÕES
 
         observarProblemasDaRegiao()
     }
 
-    // =================================================
-    // BUSCAR TODAS AS RECLAMAÇÕES
-    // =================================================
+    // BUSCAR RECLAMAÇÕES NO FIRESTORE
 
     private fun observarProblemasDaRegiao() {
 
@@ -153,751 +114,340 @@ class ProblemasDaRegiaoActivity : AppCompatActivity() {
 
         listenerReclamacoes =
             db.collection("reclamacoes")
-                .addSnapshotListener {
-
-                        documentos,
-                        erro ->
+                .addSnapshotListener { documentos, erro ->
 
                     if (erro != null) {
 
-                        listaReclamacoes
-                            .removeAllViews()
+                        listaReclamacoes.removeAllViews()
 
-                        val texto =
-                            TextView(this)
+                        val texto = TextView(this)
 
                         texto.text =
-                            "Erro ao carregar os problemas:\n\n" +
-                                    erro.message
+                            "Erro ao carregar os problemas:\n\n${erro.message}"
 
-                        texto.textSize =
-                            16f
+                        texto.textSize = 16f
+                        texto.setTextColor(Color.RED)
+                        texto.gravity = Gravity.CENTER
 
-                        texto.setTextColor(
-                            Color.RED
-                        )
+                        texto.setPadding(25, 50, 25, 50)
 
-                        texto.gravity =
-                            Gravity.CENTER
-
-                        texto.setPadding(
-                            25,
-                            50,
-                            25,
-                            50
-                        )
-
-                        listaReclamacoes
-                            .addView(
-                                texto
-                            )
+                        listaReclamacoes.addView(texto)
 
                         return@addSnapshotListener
                     }
 
-                    if (
-                        documentos == null
-                    ) {
-
+                    if (documentos == null) {
                         return@addSnapshotListener
                     }
 
-                    documentosAtuais =
-                        documentos.documents
+                    documentosAtuais = documentos.documents
 
                     mostrarReclamacoes()
                 }
     }
 
-    // =================================================
     // MOSTRAR RECLAMAÇÕES
-    // =================================================
 
     private fun mostrarReclamacoes() {
 
-        listaReclamacoes
-            .removeAllViews()
+        listaReclamacoes.removeAllViews()
 
         val documentosFiltrados =
-            if (
-                filtroAtual ==
-                "Todos"
-            ) {
-
+            if (filtroAtual == "Todos") {
                 documentosAtuais
-
             } else {
-
-                documentosAtuais.filter {
-                        documento ->
+                documentosAtuais.filter { documento ->
 
                     val tipo =
-                        documento
-                            .getString("tipo")
-                            ?.trim()
-                            ?: ""
+                        documento.getString("tipo")?.trim() ?: ""
 
-                    tipo.equals(
-                        filtroAtual,
-                        ignoreCase = true
-                    )
+                    tipo.equals(filtroAtual, ignoreCase = true)
                 }
             }
 
-        if (
-            documentosFiltrados.isEmpty()
-        ) {
+        if (documentosFiltrados.isEmpty()) {
 
-            val vazio =
-                TextView(this)
+            val vazio = TextView(this)
 
             vazio.text =
-                if (
-                    filtroAtual ==
-                    "Todos"
-                ) {
-
+                if (filtroAtual == "Todos") {
                     "Nenhum problema registrado na região."
-
                 } else {
-
                     "Nenhum problema encontrado nesta categoria."
                 }
 
-            vazio.textSize =
-                17f
+            vazio.textSize = 17f
+            vazio.setTextColor(Color.DKGRAY)
+            vazio.gravity = Gravity.CENTER
 
-            vazio.setTextColor(
-                Color.DKGRAY
-            )
+            vazio.setPadding(20, 80, 20, 80)
 
-            vazio.gravity =
-                Gravity.CENTER
-
-            vazio.setPadding(
-                20,
-                80,
-                20,
-                80
-            )
-
-            listaReclamacoes
-                .addView(
-                    vazio
-                )
+            listaReclamacoes.addView(vazio)
 
             return
         }
 
-        for (
-        documento in documentosFiltrados
-        ) {
-
-            criarCartao(
-                documento
-            )
+        for (documento in documentosFiltrados) {
+            criarCartao(documento)
         }
     }
 
-    // =================================================
-    // CRIAR CARTÃO
-    // =================================================
+    // CRIAR CARTÃO DA RECLAMAÇÃO
 
-    private fun criarCartao(
-        documento: DocumentSnapshot
-    ) {
+    private fun criarCartao(documento: DocumentSnapshot) {
 
         val tipo =
-            documento
-                .getString("tipo")
-                ?: "Problema não informado"
+            documento.getString("tipo") ?: "Problema não informado"
 
         val descricao =
-            documento
-                .getString("descricao")
-                ?: "Sem descrição"
+            documento.getString("descricao") ?: "Sem descrição"
 
         val endereco =
-            documento
-                .getString("endereco")
-                ?: "Localização não informada"
+            documento.getString("endereco") ?: "Localização não informada"
 
         val cep =
-            documento
-                .getString("cep")
-                ?: ""
+            documento.getString("cep") ?: ""
 
         val status =
-            documento
-                .getString("status")
-                ?: "Pendente"
+            documento.getString("status") ?: "Pendente"
 
         val usuarioNome =
-            documento
-                .getString("usuarioNome")
-                ?: "Usuário"
+            documento.getString("usuarioNome") ?: "Usuário"
 
         val usuarioEmail =
-            documento
-                .getString("usuarioEmail")
-                ?: ""
+            documento.getString("usuarioEmail") ?: ""
 
-        val data =
-            documento.get("data")
+        val data = documento.get("data")
+        val dataFormatada = formatarData(data)
 
-        val dataFormatada =
-            formatarData(data)
-
-        // ==========================================
         // CARTÃO
-        // ==========================================
 
-        val cartao =
-            LinearLayout(this)
+        val cartao = LinearLayout(this)
 
-        cartao.orientation =
-            LinearLayout.VERTICAL
+        cartao.orientation = LinearLayout.VERTICAL
+        cartao.setPadding(18, 18, 18, 18)
 
-        cartao.setPadding(
-            18,
-            18,
-            18,
-            18
+        val fundo = GradientDrawable()
+
+        fundo.setColor(Color.WHITE)
+        fundo.cornerRadius = 22f
+        fundo.setStroke(1, Color.rgb(225, 220, 200))
+
+        cartao.background = fundo
+
+        val parametros = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
         )
 
-        val fundo =
-            GradientDrawable()
+        parametros.setMargins(0, 0, 0, 16)
 
-        fundo.setColor(
-            Color.WHITE
-        )
+        cartao.layoutParams = parametros
 
-        fundo.cornerRadius =
-            22f
-
-        fundo.setStroke(
-            1,
-            Color.rgb(
-                225,
-                220,
-                230
-            )
-        )
-
-        cartao.background =
-            fundo
-
-        val parametros =
-            LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-
-        parametros.setMargins(
-            0,
-            0,
-            0,
-            16
-        )
-
-        cartao.layoutParams =
-            parametros
-
-        // ==========================================
         // TIPO
-        // ==========================================
 
-        val txtTipo =
-            TextView(this)
+        val txtTipo = TextView(this)
 
+        txtTipo.text = tipo
+        txtTipo.textSize = 18f
+        txtTipo.setTextColor(Color.rgb(55, 55, 55))
+        txtTipo.setTypeface(null, Typeface.BOLD)
 
+        cartao.addView(txtTipo)
 
-        txtTipo.setTextColor(
-            Color.rgb(
-                55,
-                55,
-                55
-            )
-        )
-
-        txtTipo.setTypeface(
-            null,
-            Typeface.BOLD
-        )
-
-        cartao.addView(
-            txtTipo
-        )
-
-        // ==========================================
         // USUÁRIO
-        // ==========================================
 
-        val txtUsuario =
-            TextView(this)
+        val txtUsuario = TextView(this)
 
-        txtUsuario.text =
-            "👤 Relatado por: $usuarioNome"
+        txtUsuario.text = "Relatado por: $usuarioNome"
+        txtUsuario.textSize = 13f
+        txtUsuario.setTextColor(Color.GRAY)
+        txtUsuario.setPadding(0, 6, 0, 8)
 
-        txtUsuario.textSize =
-            13f
+        cartao.addView(txtUsuario)
 
-        txtUsuario.setTextColor(
-            Color.GRAY
-        )
-
-        txtUsuario.setPadding(
-            0,
-            6,
-            0,
-            8
-        )
-
-        cartao.addView(
-            txtUsuario
-        )
-
-        // ==========================================
         // DESCRIÇÃO
-        // ==========================================
 
-        val txtDescricao =
-            TextView(this)
+        val txtDescricao = TextView(this)
 
-        txtDescricao.text =
-            "📝  $descricao"
+        txtDescricao.text = descricao
+        txtDescricao.textSize = 15f
+        txtDescricao.setTextColor(Color.DKGRAY)
+        txtDescricao.setPadding(0, 5, 0, 8)
 
-        txtDescricao.textSize =
-            15f
+        cartao.addView(txtDescricao)
 
-        txtDescricao.setTextColor(
-            Color.DKGRAY
-        )
-
-        txtDescricao.setPadding(
-            0,
-            5,
-            0,
-            8
-        )
-
-        cartao.addView(
-            txtDescricao
-        )
-
-        // ==========================================
         // ENDEREÇO
-        // ==========================================
 
-        val txtEndereco =
-            TextView(this)
+        val txtEndereco = TextView(this)
 
-        txtEndereco.text =
-            "📍  $endereco"
+        txtEndereco.text = "Localização: $endereco"
+        txtEndereco.textSize = 14f
+        txtEndereco.setTextColor(Color.DKGRAY)
 
-        txtEndereco.textSize =
-            14f
+        cartao.addView(txtEndereco)
 
-        txtEndereco.setTextColor(
-            Color.DKGRAY
-        )
-
-        cartao.addView(
-            txtEndereco
-        )
-
-        // ==========================================
         // CEP
-        // ==========================================
 
-        if (
-            cep.isNotBlank()
-        ) {
+        if (cep.isNotBlank()) {
 
-            val txtCep =
-                TextView(this)
+            val txtCep = TextView(this)
 
-            txtCep.text =
-                "📮 CEP: $cep"
+            txtCep.text = "CEP: $cep"
+            txtCep.textSize = 14f
+            txtCep.setTextColor(Color.DKGRAY)
+            txtCep.setPadding(0, 5, 0, 5)
 
-            txtCep.textSize =
-                14f
-
-            txtCep.setTextColor(
-                Color.DKGRAY
-            )
-
-            txtCep.setPadding(
-                0,
-                5,
-                0,
-                5
-            )
-
-            cartao.addView(
-                txtCep
-            )
+            cartao.addView(txtCep)
         }
 
-        // ==========================================
         // DATA
-        // ==========================================
 
-        if (
-            dataFormatada.isNotBlank()
-        ) {
+        if (dataFormatada.isNotBlank()) {
 
-            val txtData =
-                TextView(this)
+            val txtData = TextView(this)
 
-            txtData.text =
-                "📅 $dataFormatada"
+            txtData.text = dataFormatada
+            txtData.textSize = 13f
+            txtData.setTextColor(Color.GRAY)
+            txtData.setPadding(0, 5, 0, 5)
 
-            txtData.textSize =
-                13f
-
-            txtData.setTextColor(
-                Color.GRAY
-            )
-
-            txtData.setPadding(
-                0,
-                5,
-                0,
-                5
-            )
-
-            cartao.addView(
-                txtData
-            )
+            cartao.addView(txtData)
         }
 
-        // ==========================================
         // STATUS
-        // ==========================================
 
-        val txtStatus =
-            TextView(this)
+        val txtStatus = TextView(this)
 
-        txtStatus.text =
-            "Status: $status"
+        txtStatus.text = "Status: $status"
+        txtStatus.textSize = 14f
+        txtStatus.setTypeface(null, Typeface.BOLD)
 
-        txtStatus.textSize =
-            14f
+        configurarStatus(txtStatus, status)
 
-        txtStatus.setTypeface(
-            null,
-            Typeface.BOLD
-        )
+        cartao.addView(txtStatus)
 
-        configurarStatus(
-            txtStatus,
-            status
-        )
-
-        cartao.addView(
-            txtStatus
-        )
-
-        // ==========================================
-        // CLIQUE
-        // ==========================================
+        // ABRIR DETALHES
 
         cartao.setOnClickListener {
 
-            val intent =
-                Intent(
-                    this,
-                    DetalhesReclamacaoActivity::class.java
-                )
-
-            intent.putExtra(
-                "tipo",
-                tipo
+            val intent = Intent(
+                this,
+                DetalhesReclamacaoActivity::class.java
             )
 
-            intent.putExtra(
-                "descricao",
-                descricao
-            )
+            intent.putExtra("tipo", tipo)
+            intent.putExtra("descricao", descricao)
+            intent.putExtra("endereco", endereco)
+            intent.putExtra("cep", cep)
+            intent.putExtra("status", status)
+            intent.putExtra("documentoId", documento.id)
+            intent.putExtra("usuarioNome", usuarioNome)
+            intent.putExtra("usuarioEmail", usuarioEmail)
 
-            intent.putExtra(
-                "endereco",
-                endereco
-            )
-
-            intent.putExtra(
-                "cep",
-                cep
-            )
-
-            intent.putExtra(
-                "status",
-                status
-            )
-
-            intent.putExtra(
-                "documentoId",
-                documento.id
-            )
-
-            intent.putExtra(
-                "usuarioNome",
-                usuarioNome
-            )
-
-            intent.putExtra(
-                "usuarioEmail",
-                usuarioEmail
-            )
-
-            intent.putExtra(
-                "documentoId",
-                documento.id
-            )
-
-            startActivity(
-                intent
-            )
+            startActivity(intent)
         }
 
-        listaReclamacoes
-            .addView(
-                cartao
-            )
+        listaReclamacoes.addView(cartao)
     }
 
-    // =================================================
-    // CONFIGURAR STATUS
-    // =================================================
+    // CONFIGURAR APARÊNCIA DO STATUS
 
     private fun configurarStatus(
-
         txtStatus: TextView,
-
         status: String
-
     ) {
 
-        val fundo =
-            GradientDrawable()
+        val fundo = GradientDrawable()
 
-        fundo.cornerRadius =
-            20f
+        fundo.cornerRadius = 20f
 
         when {
 
-            status.equals(
-                "Resolvido",
-                ignoreCase = true
-            ) -> {
+            status.equals("Resolvido", ignoreCase = true) -> {
 
-                fundo.setColor(
-                    Color.rgb(
-                        215,
-                        245,
-                        220
-                    )
-                )
-
-                txtStatus.setTextColor(
-                    Color.rgb(
-                        30,
-                        130,
-                        50
-                    )
-                )
+                fundo.setColor(Color.rgb(215, 245, 220))
+                txtStatus.setTextColor(Color.rgb(30, 130, 50))
             }
 
-            status.equals(
-                "Em análise",
-                ignoreCase = true
-            ) ||
-                    status.equals(
-                        "Em analise",
-                        ignoreCase = true
-                    ) -> {
+            status.equals("Em análise", ignoreCase = true) ||
+                    status.equals("Em analise", ignoreCase = true) -> {
 
-                fundo.setColor(
-                    Color.rgb(
-                        215,
-                        232,
-                        255
-                    )
-                )
-
-                txtStatus.setTextColor(
-                    Color.rgb(
-                        30,
-                        90,
-                        180
-                    )
-                )
+                fundo.setColor(Color.rgb(215, 232, 255))
+                txtStatus.setTextColor(Color.rgb(30, 90, 180))
             }
 
             else -> {
 
-                fundo.setColor(
-                    Color.rgb(
-                        255,
-                        237,
-                        200
-                    )
-                )
-
-                txtStatus.setTextColor(
-                    Color.rgb(
-                        180,
-                        110,
-                        0
-                    )
-                )
+                fundo.setColor(Color.rgb(255, 237, 200))
+                txtStatus.setTextColor(Color.rgb(180, 110, 0))
             }
         }
 
-        txtStatus.background =
-            fundo
-
-        txtStatus.setPadding(
-            12,
-            9,
-            12,
-            9
-        )
-
-        txtStatus.gravity =
-            Gravity.CENTER
+        txtStatus.background = fundo
+        txtStatus.setPadding(12, 9, 12, 9)
+        txtStatus.gravity = Gravity.CENTER
     }
 
-    // =================================================
     // FORMATAR DATA
-    // =================================================
 
-    private fun formatarData(
-        valor: Any?
-    ): String {
+    private fun formatarData(valor: Any?): String {
 
-        if (
-            valor == null
-        ) {
-
+        if (valor == null) {
             return ""
         }
 
         return try {
 
-            val milissegundos =
-                when (valor) {
+            val milissegundos = when (valor) {
+                is Number -> valor.toLong()
+                else -> null
+            }
 
-                    is Number ->
-                        valor.toLong()
+            if (milissegundos != null) {
 
-                    else ->
-                        null
-                }
+                val data = Date(milissegundos)
 
-            if (
-                milissegundos != null
-            ) {
-
-                val data =
-                    Date(
-                        milissegundos
-                    )
-
-                val formato =
-                    SimpleDateFormat(
-                        "dd/MM/yyyy HH:mm",
-                        Locale.getDefault()
-                    )
-
-                formato.format(
-                    data
+                val formato = SimpleDateFormat(
+                    "dd/MM/yyyy HH:mm",
+                    Locale.getDefault()
                 )
 
-            } else {
+                formato.format(data)
 
+            } else {
                 valor.toString()
             }
 
-        } catch (
-            e: Exception
-        ) {
-
+        } catch (e: Exception) {
             valor.toString()
         }
     }
 
-    // =================================================
     // ATUALIZAR FILTROS
-    // =================================================
 
     private fun atualizarBotoes() {
 
         btnTodos.alpha =
-            if (
-                filtroAtual ==
-                "Todos"
-            ) {
-
-                1.0f
-
-            } else {
-
-                0.65f
-            }
+            if (filtroAtual == "Todos") 1.0f else 0.65f
 
         btnBuracos.alpha =
-            if (
-                filtroAtual ==
-                "Buraco na rua"
-            ) {
-
-                1.0f
-
-            } else {
-
-                0.65f
-            }
+            if (filtroAtual == "Buraco na rua") 1.0f else 0.65f
 
         btnIluminacao.alpha =
-            if (
-                filtroAtual ==
-                "Iluminação pública"
-            ) {
-
-                1.0f
-
-            } else {
-
-                0.65f
-            }
+            if (filtroAtual == "Iluminação pública") 1.0f else 0.65f
 
         btnLixo.alpha =
-            if (
-                filtroAtual ==
-                "Lixo acumulado"
-            ) {
-
-                1.0f
-
-            } else {
-
-                0.65f
-            }
+            if (filtroAtual == "Lixo acumulado") 1.0f else 0.65f
     }
 
-    // =================================================
-    // DESTRUIR LISTENER
-    // =================================================
+    // LIBERAR LISTENER AO FECHAR A TELA
 
     override fun onDestroy() {
 
-        super.onDestroy()
-
         listenerReclamacoes?.remove()
+        listenerReclamacoes = null
 
-        listenerReclamacoes =
-            null
+        super.onDestroy()
     }
 }
