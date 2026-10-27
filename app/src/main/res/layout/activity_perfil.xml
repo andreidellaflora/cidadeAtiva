@@ -15,16 +15,12 @@
         android:gravity="center_horizontal"
         android:paddingBottom="30dp">
 
-        <!-- ========================================== -->
         <!-- CABEÇALHO -->
-        <!-- ========================================== -->
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="210dp"
             android:background="#FFF8E6">
-
-            <!-- FUNDO DECORATIVO -->
 
             <ImageView
                 android:layout_width="match_parent"
@@ -33,8 +29,6 @@
                 android:src="@drawable/cidadeativa_logo_corrigido"
                 android:alpha="0.16"
                 android:contentDescription="CidadeAtiva" />
-
-            <!-- TÍTULO -->
 
             <TextView
                 android:layout_width="match_parent"
@@ -48,31 +42,23 @@
 
         </FrameLayout>
 
-        <!-- ========================================== -->
         <!-- FAIXA AMARELA -->
-        <!-- ========================================== -->
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="18dp"
-            android:background="#F4C51B"
+            android:background="#FFD32A"
             android:gravity="center"
             android:text="///  ///  ///  ///  ///  ///  ///  ///"
             android:textColor="#FFF8D8"
             android:textSize="11sp"
             android:singleLine="true" />
 
-        <!-- ========================================== -->
-        <!-- ESPAÇO -->
-        <!-- ========================================== -->
-
         <Space
             android:layout_width="match_parent"
             android:layout_height="25dp" />
 
-        <!-- ========================================== -->
         <!-- FOTO DO USUÁRIO -->
-        <!-- ========================================== -->
 
         <ImageView
             android:id="@+id/imgPerfil"
@@ -85,9 +71,7 @@
             android:elevation="5dp"
             android:contentDescription="Foto do usuário" />
 
-        <!-- ========================================== -->
         <!-- NOME -->
-        <!-- ========================================== -->
 
         <TextView
             android:id="@+id/txtNome"
@@ -102,9 +86,7 @@
             android:textSize="25sp"
             android:textStyle="bold" />
 
-        <!-- ========================================== -->
         <!-- CARD DE INFORMAÇÕES -->
-        <!-- ========================================== -->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -136,9 +118,7 @@
 
         </LinearLayout>
 
-        <!-- ========================================== -->
         <!-- MINHAS RECLAMAÇÕES -->
-        <!-- ========================================== -->
 
         <Button
             android:id="@+id/btnMinhasReclamacoes"
@@ -148,15 +128,14 @@
             android:layout_marginEnd="22dp"
             android:layout_marginTop="25dp"
             android:text="MINHAS RECLAMAÇÕES"
-            android:textColor="#FFFFFF"
+            android:textColor="#222222"
             android:textSize="14sp"
             android:textStyle="bold"
-            android:backgroundTint="#6F4BB8"
+            android:backgroundTint="#FFD32A"
+            android:stateListAnimator="@null"
             android:textAllCaps="true" />
 
-        <!-- ========================================== -->
         <!-- SAIR DA CONTA -->
-        <!-- ========================================== -->
 
         <Button
             android:id="@+id/btnSair"
@@ -166,15 +145,14 @@
             android:layout_marginEnd="22dp"
             android:layout_marginTop="12dp"
             android:text="SAIR DA CONTA"
-            android:textColor="#6F4BB8"
+            android:textColor="#292929"
             android:textSize="14sp"
             android:textStyle="bold"
-            android:backgroundTint="#E9DFF8"
+            android:backgroundTint="#FFF0B8"
+            android:stateListAnimator="@null"
             android:textAllCaps="true" />
 
-        <!-- ========================================== -->
         <!-- VOLTAR -->
-        <!-- ========================================== -->
 
         <Button
             android:id="@+id/btnVoltar"
@@ -184,10 +162,11 @@
             android:layout_marginEnd="22dp"
             android:layout_marginTop="12dp"
             android:text="VOLTAR"
-            android:textColor="#555555"
+            android:textColor="#222222"
             android:textSize="14sp"
             android:textStyle="bold"
-            android:backgroundTint="#EEEEEE"
+            android:backgroundTint="#FFD32A"
+            android:stateListAnimator="@null"
             android:textAllCaps="true" />
 
     </LinearLayout>
