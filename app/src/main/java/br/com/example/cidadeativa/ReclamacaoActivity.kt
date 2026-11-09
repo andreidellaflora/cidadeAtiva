@@ -1,4 +1,3 @@
-
 package br.com.example.cidadeativa
 
 import android.Manifest
@@ -34,6 +33,7 @@ import org.json.JSONObject
 import java.net.HttpURLConnection
 import java.net.URL
 import java.util.Locale
+import java.security.MessageDigest
 
 class ReclamacaoActivity : AppCompatActivity() {
 
@@ -41,6 +41,7 @@ class ReclamacaoActivity : AppCompatActivity() {
 
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
+    private var envioEmAndamento = false
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1001
@@ -144,6 +145,7 @@ class ReclamacaoActivity : AppCompatActivity() {
         // ENVIAR RECLAMAÇÃO
 
         btnEnviar.setOnClickListener {
+            if (envioEmAndamento) return@setOnClickListener
             val usuario = auth.currentUser
 
             if (usuario == null) {
@@ -159,6 +161,11 @@ class ReclamacaoActivity : AppCompatActivity() {
             val descricao = edtDescricao.text.toString().trim()
             val endereco = txtEndereco.text.toString().trim()
             val cep = edtCep.text.toString().trim()
+
+            if (tipo.isBlank()) {
+                Toast.makeText(this, "Selecione o tipo do problema.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
             if (descricao.isEmpty()) {
                 edtDescricao.error = "Digite uma descrição do problema."
@@ -187,6 +194,7 @@ class ReclamacaoActivity : AppCompatActivity() {
 
             btnEnviar.isEnabled = false
             btnEnviar.text = "ENVIANDO..."
+            envioEmAndamento = true
 
             val usuarioId = usuario.uid
 
@@ -205,7 +213,9 @@ class ReclamacaoActivity : AppCompatActivity() {
                 usuarioId = usuarioId,
                 usuarioNome = usuarioNome,
                 usuarioEmail = usuarioEmail,
-                btnEnviar = btnEnviar
+                chaveEnvio = gerarChaveEnvio(usuarioId, tipo, descricao, endereco),
+                btnEnviar = btnEnviar,
+                onFinish = { envioEmAndamento = false }
             )
         }
     }
@@ -251,7 +261,9 @@ class ReclamacaoActivity : AppCompatActivity() {
         usuarioId: String,
         usuarioNome: String,
         usuarioEmail: String,
-        btnEnviar: Button
+        chaveEnvio: String,
+        btnEnviar: Button,
+        onFinish: () -> Unit
     ) {
         val reclamacao = hashMapOf(
             "tipo" to tipo,
@@ -266,7 +278,8 @@ class ReclamacaoActivity : AppCompatActivity() {
         )
 
         db.collection("reclamacoes")
-            .add(reclamacao)
+            .document(chaveEnvio)
+            .set(reclamacao)
             .addOnSuccessListener {
                 Toast.makeText(
                     this,
@@ -274,21 +287,32 @@ class ReclamacaoActivity : AppCompatActivity() {
                     Toast.LENGTH_LONG
                 ).show()
 
-                btnEnviar.isEnabled = true
-                btnEnviar.text = "ENVIAR RECLAMAÇÃO"
-
                 finish()
             }
             .addOnFailureListener { erro ->
+                onFinish()
                 btnEnviar.isEnabled = true
                 btnEnviar.text = "ENVIAR RECLAMAÇÃO"
 
                 Toast.makeText(
                     this,
-                    "Erro ao enviar reclamação:\n${erro.message}",
+                    "Não foi possível enviar sua reclamação. Verifique sua conexão e tente novamente. Detalhes: ${erro.localizedMessage ?: "erro desconhecido"}",
                     Toast.LENGTH_LONG
                 ).show()
             }
+    }
+
+    private fun gerarChaveEnvio(
+        usuarioId: String,
+        tipo: String,
+        descricao: String,
+        endereco: String
+    ): String {
+        val conteudo = listOf(usuarioId, tipo, descricao, endereco)
+            .joinToString("|") { it.trim().lowercase(Locale.ROOT) }
+        val hash = MessageDigest.getInstance("SHA-256")
+            .digest(conteudo.toByteArray(Charsets.UTF_8))
+        return hash.joinToString("") { byte -> "%02x".format(byte) }
     }
 
     // RESULTADO DA SELEÇÃO DA FOTO
