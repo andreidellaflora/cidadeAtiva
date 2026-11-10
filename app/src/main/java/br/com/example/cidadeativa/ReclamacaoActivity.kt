@@ -25,6 +25,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -290,15 +291,19 @@ class ReclamacaoActivity : AppCompatActivity() {
                 finish()
             }
             .addOnFailureListener { erro ->
+                Log.e("ReclamacaoActivity", "Falha ao gravar reclamação no Firestore", erro)
                 onFinish()
                 btnEnviar.isEnabled = true
                 btnEnviar.text = "ENVIAR RECLAMAÇÃO"
 
-                Toast.makeText(
-                    this,
-                    "Não foi possível enviar sua reclamação. Verifique sua conexão e tente novamente. Detalhes: ${erro.localizedMessage ?: "erro desconhecido"}",
-                    Toast.LENGTH_LONG
-                ).show()
+                val mensagem = when {
+                    erro.message?.contains("PERMISSION_DENIED", ignoreCase = true) == true ->
+                        "Firebase bloqueou o envio. Verifique as regras do Firestore para a coleção reclamacoes."
+                    erro.message?.contains("UNAVAILABLE", ignoreCase = true) == true ->
+                        "Sem conexão com o Firebase. Verifique sua internet e tente novamente."
+                    else -> "Falha ao enviar: ${erro.localizedMessage ?: erro.javaClass.simpleName}"
+                }
+                Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show()
             }
     }
 
