@@ -14,6 +14,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -67,6 +68,7 @@ class ReclamacaoActivity : AppCompatActivity() {
         val btnLocalizacao = findViewById<Button>(R.id.btnLocalizacao)
         val btnEnderecoManual = findViewById<Button>(R.id.btnEnderecoManual)
         val btnEnviar = findViewById<Button>(R.id.btnEnviar)
+        val progressoEnvio = findViewById<ProgressBar>(R.id.progressoEnvio)
 
         // BOTÃO VOLTAR
 
@@ -163,20 +165,9 @@ class ReclamacaoActivity : AppCompatActivity() {
             val endereco = txtEndereco.text.toString().trim()
             val cep = edtCep.text.toString().trim()
 
-            if (tipo.isBlank()) {
-                Toast.makeText(this, "Selecione o tipo do problema.", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
             if (descricao.isEmpty()) {
-                edtDescricao.error = "Digite uma descrição do problema."
-
-                Toast.makeText(
-                    this,
-                    "Digite uma descrição do problema.",
-                    Toast.LENGTH_SHORT
-                ).show()
-
+                edtDescricao.error = "Obrigatório: descreva o problema."
+                edtDescricao.requestFocus()
                 return@setOnClickListener
             }
 
@@ -184,18 +175,9 @@ class ReclamacaoActivity : AppCompatActivity() {
                 endereco.isEmpty() ||
                 endereco == "O endereço aparecerá aqui"
             ) {
-                Toast.makeText(
-                    this,
-                    "Informe a localização do problema.",
-                    Toast.LENGTH_SHORT
-                ).show()
-
+                Toast.makeText(this, "Obrigatório: informe o endereço pelo CEP, GPS ou manualmente.", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
-
-            btnEnviar.isEnabled = false
-            btnEnviar.text = "ENVIANDO..."
-            envioEmAndamento = true
 
             val usuarioId = usuario.uid
 
@@ -206,18 +188,51 @@ class ReclamacaoActivity : AppCompatActivity() {
 
             val usuarioEmail = usuario.email ?: ""
 
-            salvarReclamacao(
-                tipo = tipo,
-                descricao = descricao,
-                endereco = endereco,
-                cep = cep,
-                usuarioId = usuarioId,
-                usuarioNome = usuarioNome,
-                usuarioEmail = usuarioEmail,
-                chaveEnvio = gerarChaveEnvio(usuarioId, tipo, descricao, endereco),
-                btnEnviar = btnEnviar,
-                onFinish = { envioEmAndamento = false }
+            val revisaoView = layoutInflater.inflate(
+                R.layout.dialog_revisar_reclamacao,
+                null
             )
+            revisaoView.findViewById<TextView>(R.id.revisaoTipo).text = "TIPO DO PROBLEMA\n$tipo"
+            revisaoView.findViewById<TextView>(R.id.revisaoDescricao).text = "DESCRIÇÃO\n$descricao"
+            revisaoView.findViewById<TextView>(R.id.revisaoEndereco).text = "LOCALIZAÇÃO\n$endereco"
+
+            val dialogoRevisao = AlertDialog.Builder(this)
+                .setView(revisaoView)
+                .setNegativeButton("EDITAR", null)
+                .setPositiveButton("CONFIRMAR ENVIO", null)
+                .create()
+
+            dialogoRevisao.setOnShowListener {
+                dialogoRevisao.getButton(AlertDialog.BUTTON_POSITIVE).apply {
+                    setTextColor(android.graphics.Color.rgb(34, 34, 34))
+                    backgroundTintList = android.content.res.ColorStateList.valueOf(
+                        android.graphics.Color.rgb(255, 211, 42)
+                    )
+                    setOnClickListener {
+                        dialogoRevisao.dismiss()
+                    envioEmAndamento = true
+                    btnEnviar.isEnabled = false
+                    btnEnviar.text = "ENVIANDO..."
+                    progressoEnvio.visibility = ProgressBar.VISIBLE
+                    salvarReclamacao(
+                        tipo = tipo,
+                        descricao = descricao,
+                        endereco = endereco,
+                        cep = cep,
+                        usuarioId = usuarioId,
+                        usuarioNome = usuarioNome,
+                        usuarioEmail = usuarioEmail,
+                        chaveEnvio = gerarChaveEnvio(usuarioId, tipo, descricao, endereco),
+                        btnEnviar = btnEnviar,
+                        progressoEnvio = progressoEnvio,
+                        onFinish = { envioEmAndamento = false }
+                    )
+                    }
+                }
+                dialogoRevisao.getButton(AlertDialog.BUTTON_NEGATIVE)
+                    .setTextColor(android.graphics.Color.rgb(73, 69, 61))
+            }
+            dialogoRevisao.show()
         }
     }
 
@@ -264,6 +279,7 @@ class ReclamacaoActivity : AppCompatActivity() {
         usuarioEmail: String,
         chaveEnvio: String,
         btnEnviar: Button,
+        progressoEnvio: ProgressBar,
         onFinish: () -> Unit
     ) {
         val reclamacao = hashMapOf(
@@ -295,6 +311,7 @@ class ReclamacaoActivity : AppCompatActivity() {
                 onFinish()
                 btnEnviar.isEnabled = true
                 btnEnviar.text = "ENVIAR RECLAMAÇÃO"
+                progressoEnvio.visibility = ProgressBar.GONE
 
                 val mensagem = when {
                     erro.message?.contains("PERMISSION_DENIED", ignoreCase = true) == true ->

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="22dp"
+    android:background="#FFF9E9">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Revise sua reclamação"
+        android:textColor="#222222"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="Confira os dados antes de enviar."
+        android:textColor="#777064"
+        android:textSize="14sp" />
+
+    <View
+        android:layout_width="56dp"
+        android:layout_height="4dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="14dp"
+        android:background="#FFD32A" />
+
+    <TextView
+        android:id="@+id/revisaoTipo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:background="#FFFFFF"
+        android:textColor="#292929"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/revisaoDescricao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:padding="12dp"
+        android:background="#FFFFFF"
+        android:textColor="#292929"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/revisaoEndereco"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:padding="12dp"
+        android:background="#FFFFFF"
+        android:textColor="#292929"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="Deseja enviar estes dados?"
+        android:textColor="#49453D"
+        android:textSize="14sp" />
+</LinearLayout>
