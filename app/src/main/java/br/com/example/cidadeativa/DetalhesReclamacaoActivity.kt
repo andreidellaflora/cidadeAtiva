@@ -2,6 +2,8 @@ package br.com.example.cidadeativa
 
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.BitmapFactory
+import android.util.Base64
 import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.os.Bundle
@@ -51,6 +53,8 @@ class DetalhesReclamacaoActivity : AppCompatActivity() {
             findViewById<TextView>(
                 R.id.txtTipo
             )
+
+        val imgFotoReclamacao = findViewById<android.widget.ImageView>(R.id.imgFotoReclamacao)
 
 
         val txtDescricao =
@@ -170,6 +174,19 @@ class DetalhesReclamacaoActivity : AppCompatActivity() {
                     documento
                         .getString("status")
                         ?: "Pendente"
+
+                documento.getString("fotoBase64")?.let { fotoBase64 ->
+                    try {
+                        val bytes = Base64.decode(fotoBase64, Base64.DEFAULT)
+                        val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                        if (bitmap != null) {
+                            imgFotoReclamacao.setImageBitmap(bitmap)
+                            imgFotoReclamacao.visibility = android.view.View.VISIBLE
+                        }
+                    } catch (erro: IllegalArgumentException) {
+                        android.util.Log.e("DetalhesReclamacao", "Foto Base64 inválida", erro)
+                    }
+                }
 
 
                 // ====================================================

@@ -68,6 +68,15 @@
             android:paddingEnd="20dp"
             android:paddingTop="20dp">
 
+            <ImageView
+                android:id="@+id/imgFotoReclamacao"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:layout_marginBottom="18dp"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                android:contentDescription="Foto anexada à reclamação" />
+
             <!-- ================================================= -->
             <!-- USUÁRIO -->
             <!-- ================================================= -->

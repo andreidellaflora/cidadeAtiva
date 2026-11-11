@@ -6,6 +6,8 @@ import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -36,6 +38,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.util.Locale
 import java.security.MessageDigest
+import android.util.Base64
 
 class ReclamacaoActivity : AppCompatActivity() {
 
@@ -44,6 +47,7 @@ class ReclamacaoActivity : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
     private var envioEmAndamento = false
+    private var imagemSelecionada: Uri? = null
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1001
@@ -225,6 +229,7 @@ class ReclamacaoActivity : AppCompatActivity() {
                         chaveEnvio = gerarChaveEnvio(usuarioId, tipo, descricao, endereco),
                         btnEnviar = btnEnviar,
                         progressoEnvio = progressoEnvio,
+                        imagemUri = imagemSelecionada,
                         onFinish = { envioEmAndamento = false }
                     )
                     }
@@ -280,48 +285,103 @@ class ReclamacaoActivity : AppCompatActivity() {
         chaveEnvio: String,
         btnEnviar: Button,
         progressoEnvio: ProgressBar,
+        imagemUri: Uri?,
         onFinish: () -> Unit
     ) {
-        val reclamacao = hashMapOf(
-            "tipo" to tipo,
-            "descricao" to descricao,
-            "endereco" to endereco,
-            "cep" to cep,
-            "status" to "Pendente",
-            "data" to System.currentTimeMillis(),
-            "usuarioId" to usuarioId,
-            "usuarioNome" to usuarioNome,
-            "usuarioEmail" to usuarioEmail
-        )
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val fotoBase64 = imagemUri?.let { converterImagemParaBase64(it) }
+                withContext(Dispatchers.Main) {
+                    val reclamacao = hashMapOf<String, Any>(
+                        "tipo" to tipo,
+                        "descricao" to descricao,
+                        "endereco" to endereco,
+                        "cep" to cep,
+                        "status" to "Pendente",
+                        "data" to System.currentTimeMillis(),
+                        "usuarioId" to usuarioId,
+                        "usuarioNome" to usuarioNome,
+                        "usuarioEmail" to usuarioEmail
+                    )
+                    if (fotoBase64 != null) reclamacao["fotoBase64"] = fotoBase64
 
-        db.collection("reclamacoes")
-            .document(chaveEnvio)
-            .set(reclamacao)
-            .addOnSuccessListener {
-                Toast.makeText(
-                    this,
-                    "Reclamação enviada com sucesso!",
-                    Toast.LENGTH_LONG
-                ).show()
-
-                finish()
-            }
-            .addOnFailureListener { erro ->
-                Log.e("ReclamacaoActivity", "Falha ao gravar reclamação no Firestore", erro)
-                onFinish()
-                btnEnviar.isEnabled = true
-                btnEnviar.text = "ENVIAR RECLAMAÇÃO"
-                progressoEnvio.visibility = ProgressBar.GONE
-
-                val mensagem = when {
-                    erro.message?.contains("PERMISSION_DENIED", ignoreCase = true) == true ->
-                        "Firebase bloqueou o envio. Verifique as regras do Firestore para a coleção reclamacoes."
-                    erro.message?.contains("UNAVAILABLE", ignoreCase = true) == true ->
-                        "Sem conexão com o Firebase. Verifique sua internet e tente novamente."
-                    else -> "Falha ao enviar: ${erro.localizedMessage ?: erro.javaClass.simpleName}"
+                    db.collection("reclamacoes")
+                        .document(chaveEnvio)
+                        .set(reclamacao)
+                        .addOnSuccessListener {
+                            Toast.makeText(this@ReclamacaoActivity, "Reclamação enviada com sucesso!", Toast.LENGTH_LONG).show()
+                            finish()
+                        }
+                        .addOnFailureListener { erro ->
+                            Log.e("ReclamacaoActivity", "Falha ao gravar reclamação no Firestore", erro)
+                            restaurarBotaoEnvio(btnEnviar, progressoEnvio, onFinish)
+                            val mensagem = when {
+                                erro.message?.contains("PERMISSION_DENIED", ignoreCase = true) == true ->
+                                    "Firebase bloqueou o envio. Verifique as regras do Firestore para a coleção reclamacoes."
+                                erro.message?.contains("UNAVAILABLE", ignoreCase = true) == true ->
+                                    "Sem conexão com o Firebase. Verifique sua internet e tente novamente."
+                                else -> "Falha ao enviar: ${erro.localizedMessage ?: erro.javaClass.simpleName}"
+                            }
+                            Toast.makeText(this@ReclamacaoActivity, mensagem, Toast.LENGTH_LONG).show()
+                        }
                 }
-                Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show()
+            } catch (erro: Exception) {
+                Log.e("ReclamacaoActivity", "Falha ao preparar imagem para salvar", erro)
+                withContext(Dispatchers.Main) {
+                    restaurarBotaoEnvio(btnEnviar, progressoEnvio, onFinish)
+                    Toast.makeText(this@ReclamacaoActivity, "Não foi possível processar a imagem. Escolha uma foto menor e tente novamente.", Toast.LENGTH_LONG).show()
+                }
             }
+        }
+    }
+
+    private fun restaurarBotaoEnvio(
+        btnEnviar: Button,
+        progressoEnvio: ProgressBar,
+        onFinish: () -> Unit
+    ) {
+        onFinish()
+        btnEnviar.isEnabled = true
+        btnEnviar.text = "ENVIAR RECLAMAÇÃO"
+        progressoEnvio.visibility = ProgressBar.GONE
+    }
+
+    private fun converterImagemParaBase64(uri: Uri): String {
+        val opcoes = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+        contentResolver.openInputStream(uri).use { BitmapFactory.decodeStream(it, null, opcoes) }
+        opcoes.inJustDecodeBounds = false
+        opcoes.inSampleSize = 1
+        while (opcoes.outWidth / opcoes.inSampleSize > 1280 || opcoes.outHeight / opcoes.inSampleSize > 1280) {
+            opcoes.inSampleSize *= 2
+        }
+        var bitmap = contentResolver.openInputStream(uri).use {
+            BitmapFactory.decodeStream(it, null, opcoes)
+        } ?: throw IllegalArgumentException("Não foi possível ler a imagem")
+
+        try {
+            var qualidade = 80
+            var bytes: ByteArray
+            do {
+                val stream = java.io.ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, qualidade, stream)
+                bytes = stream.toByteArray()
+                if (bytes.size <= 500 * 1024) break
+                if (qualidade > 45) qualidade -= 10
+                else {
+                    val reduzida = Bitmap.createScaledBitmap(bitmap, bitmap.width * 3 / 4, bitmap.height * 3 / 4, true)
+                    if (reduzida !== bitmap) bitmap.recycle()
+                    bitmap = reduzida
+                    qualidade = 70
+                }
+            } while (bitmap.width > 240 && bitmap.height > 240)
+
+            if (bytes.size > 700 * 1024) {
+                throw IllegalArgumentException("Imagem maior que o limite permitido")
+            }
+            return Base64.encodeToString(bytes, Base64.NO_WRAP)
+        } finally {
+            bitmap.recycle()
+        }
     }
 
     private fun gerarChaveEnvio(
@@ -355,6 +415,7 @@ class ReclamacaoActivity : AppCompatActivity() {
             val imagemUri: Uri? = data.data
 
             if (imagemUri != null) {
+                imagemSelecionada = imagemUri
                 val imgFoto = findViewById<ImageView>(R.id.imgFoto)
 
                 imgFoto.setImageURI(imagemUri)
