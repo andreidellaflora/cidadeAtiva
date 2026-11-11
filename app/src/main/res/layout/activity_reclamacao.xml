@@ -28,6 +28,25 @@
             android:layout_marginBottom="22dp">
 
             <TextView
+                android:id="@+id/btnVoltarReclamacao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="←  voltar"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#292929"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:paddingTop="9dp"
+                android:paddingBottom="9dp"
+                android:background="#FFF0B8"
+                android:layout_gravity="start"
+                android:layout_marginBottom="14dp"/>
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Nova reclamação"
@@ -285,22 +304,6 @@
             android:textSize="12sp"
             android:textColor="#777064"
             android:gravity="center"
-            android:layout_marginBottom="10dp"/>
-
-        <!-- BOTÃO VOLTAR -->
-
-        <Button
-            android:id="@+id/btnVoltarReclamacao"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="VOLTAR"
-            android:textColor="#222222"
-            android:textStyle="bold"
-            android:textSize="14sp"
-            android:backgroundTint="#FFD32A"
-            android:stateListAnimator="@null"
-            android:elevation="2dp"
-            android:layout_marginTop="8dp"
             android:layout_marginBottom="10dp"/>
 
     </LinearLayout>

@@ -71,7 +71,7 @@ class ReclamacaoActivity : AppCompatActivity() {
         // BOTÃO VOLTAR
 
         val btnVoltarReclamacao =
-            findViewById<Button>(R.id.btnVoltarReclamacao)
+            findViewById<TextView>(R.id.btnVoltarReclamacao)
 
         btnVoltarReclamacao.setOnClickListener {
             finish()

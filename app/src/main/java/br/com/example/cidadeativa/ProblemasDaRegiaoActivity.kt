@@ -26,7 +26,7 @@ class ProblemasDaRegiaoActivity : AppCompatActivity() {
     private lateinit var btnBuracos: Button
     private lateinit var btnIluminacao: Button
     private lateinit var btnLixo: Button
-    private lateinit var btnVoltarRegiao: Button
+    private lateinit var btnVoltarRegiao: TextView
 
     private val db = FirebaseFirestore.getInstance()
 
