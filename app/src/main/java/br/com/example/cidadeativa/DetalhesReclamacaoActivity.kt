@@ -52,6 +52,7 @@ class DetalhesReclamacaoActivity : AppCompatActivity() {
                 R.id.txtTipo
             )
 
+
         val txtDescricao =
             findViewById<TextView>(
                 R.id.txtDescricao
@@ -169,6 +170,7 @@ class DetalhesReclamacaoActivity : AppCompatActivity() {
                     documento
                         .getString("status")
                         ?: "Pendente"
+
 
                 // ====================================================
                 // USUÁRIO
