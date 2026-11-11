@@ -1,7 +1,7 @@
 package br.com.example.cidadeativa
 
 import android.os.Bundle
-import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class InformacoesActivity : AppCompatActivity() {
@@ -15,7 +15,7 @@ class InformacoesActivity : AppCompatActivity() {
         )
 
         val btnVoltar =
-            findViewById<Button>(
+            findViewById<TextView>(
                 R.id.btnVoltarInformacoes
             )
 

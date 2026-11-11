@@ -55,7 +55,7 @@ class PerfilActivity : AppCompatActivity() {
             )
 
         val btnVoltar =
-            findViewById<Button>(
+            findViewById<TextView>(
                 R.id.btnVoltar
             )
 
