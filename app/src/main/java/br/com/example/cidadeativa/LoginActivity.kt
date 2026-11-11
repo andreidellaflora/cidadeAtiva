@@ -48,10 +48,6 @@ class LoginActivity : AppCompatActivity() {
                 R.id.btnCriarConta
             )
 
-        val btnVoltarLogin =
-            findViewById<Button>(
-                R.id.btnVoltarLogin
-            )
 
         // ==========================================
         // BOTÃO ENTRAR
@@ -187,14 +183,6 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // ==========================================
-        // BOTÃO VOLTAR
-        // ==========================================
-
-        btnVoltarLogin.setOnClickListener {
-
-            finish()
-        }
     }
 
     // ==============================================

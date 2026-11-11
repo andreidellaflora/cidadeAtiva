@@ -3,6 +3,7 @@ package br.com.example.cidadeativa
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
+import android.content.res.ColorStateList
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.Gravity
@@ -89,6 +90,9 @@ class MinhasReclamacoesActivity :
             findViewById(
                 R.id.btnLixo
             )
+
+        findViewById<TextView>(R.id.btnVoltarMinhasReclamacoes)
+            .setOnClickListener { finish() }
 
         // ==================================================
         // FILTROS
@@ -389,8 +393,8 @@ class MinhasReclamacoesActivity :
             1,
             Color.rgb(
                 225,
-                220,
-                230
+                211,
+                120
             )
         )
 
@@ -851,6 +855,18 @@ class MinhasReclamacoesActivity :
             } else {
                 0.65f
             }
+
+        val amarelo = ColorStateList.valueOf(Color.rgb(255, 211, 42))
+        val creme = ColorStateList.valueOf(Color.rgb(255, 240, 184))
+        val textoAtivo = Color.rgb(34, 34, 34)
+        val textoInativo = Color.rgb(41, 41, 41)
+        listOf(btnTodos to (filtroAtual == "Todos"),
+            btnBuracos to (filtroAtual == "Buraco na rua"),
+            btnIluminacao to (filtroAtual == "Iluminação pública"),
+            btnLixo to (filtroAtual == "Lixo acumulado")).forEach { (botao, ativo) ->
+            botao.backgroundTintList = if (ativo) amarelo else creme
+            botao.setTextColor(if (ativo) textoAtivo else textoInativo)
+        }
     }
 
     // ======================================================
