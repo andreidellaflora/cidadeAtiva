@@ -1,11 +1,6 @@
 package br.com.example.cidadeativa
 
-import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.location.Address
-import android.location.Geocoder
-import android.location.Location
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -20,12 +15,6 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import com.google.android.gms.location.CurrentLocationRequest
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.location.Priority
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import android.util.Log
@@ -42,24 +31,18 @@ import android.util.Base64
 
 class ReclamacaoActivity : AppCompatActivity() {
 
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
-
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
     private var envioEmAndamento = false
     private var imagemSelecionada: Uri? = null
 
     companion object {
-        private const val LOCATION_PERMISSION_REQUEST_CODE = 1001
         private const val FOTO_REQUEST_CODE = 2001
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reclamacao)
-
-        fusedLocationClient =
-            LocationServices.getFusedLocationProviderClient(this)
 
         // COMPONENTES
 
@@ -69,8 +52,6 @@ class ReclamacaoActivity : AppCompatActivity() {
         val btnBuscarCep = findViewById<Button>(R.id.btnBuscarCep)
         val txtEndereco = findViewById<TextView>(R.id.txtEndereco)
         val btnFoto = findViewById<Button>(R.id.btnFoto)
-        val btnLocalizacao = findViewById<Button>(R.id.btnLocalizacao)
-        val btnEnderecoManual = findViewById<Button>(R.id.btnEnderecoManual)
         val btnEnviar = findViewById<Button>(R.id.btnEnviar)
         val progressoEnvio = findViewById<ProgressBar>(R.id.progressoEnvio)
 
@@ -137,18 +118,6 @@ class ReclamacaoActivity : AppCompatActivity() {
             startActivityForResult(intent, FOTO_REQUEST_CODE)
         }
 
-        // USAR LOCALIZAÇÃO
-
-        btnLocalizacao.setOnClickListener {
-            obterLocalizacao(txtEndereco)
-        }
-
-        // DIGITAR ENDEREÇO MANUALMENTE
-
-        btnEnderecoManual.setOnClickListener {
-            mostrarEnderecoManual(txtEndereco)
-        }
-
         // ENVIAR RECLAMAÇÃO
 
         btnEnviar.setOnClickListener {
@@ -179,7 +148,7 @@ class ReclamacaoActivity : AppCompatActivity() {
                 endereco.isEmpty() ||
                 endereco == "O endereço aparecerá aqui"
             ) {
-                Toast.makeText(this, "Obrigatório: informe o endereço pelo CEP, GPS ou manualmente.", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Obrigatório: informe o endereço pelo CEP.", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
 
@@ -239,37 +208,6 @@ class ReclamacaoActivity : AppCompatActivity() {
             }
             dialogoRevisao.show()
         }
-    }
-
-    // ENDEREÇO MANUAL
-
-    private fun mostrarEnderecoManual(txtEndereco: TextView) {
-        val campoEndereco = EditText(this)
-
-        campoEndereco.hint = "Ex.: Rua das Flores, 123, Centro"
-        campoEndereco.setPadding(20, 15, 20, 15)
-        campoEndereco.minLines = 2
-        campoEndereco.maxLines = 4
-
-        AlertDialog.Builder(this)
-            .setTitle("Informar endereço")
-            .setView(campoEndereco)
-            .setNegativeButton("CANCELAR", null)
-            .setPositiveButton("CONFIRMAR") { _, _ ->
-                val endereco = campoEndereco.text.toString().trim()
-
-                if (endereco.isEmpty()) {
-                    Toast.makeText(
-                        this,
-                        "Digite um endereço.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else {
-                    txtEndereco.text =
-                        "Endereço informado\n\n$endereco"
-                }
-            }
-            .show()
     }
 
     // SALVAR RECLAMAÇÃO NO FIRESTORE
@@ -420,199 +358,6 @@ class ReclamacaoActivity : AppCompatActivity() {
 
                 imgFoto.setImageURI(imagemUri)
                 imgFoto.visibility = ImageView.VISIBLE
-            }
-        }
-    }
-
-    // OBTER LOCALIZAÇÃO ATUAL
-
-    private fun obterLocalizacao(txtEndereco: TextView) {
-        val permissaoFine = ContextCompat.checkSelfPermission(
-            this,
-            Manifest.permission.ACCESS_FINE_LOCATION
-        )
-
-        val permissaoCoarse = ContextCompat.checkSelfPermission(
-            this,
-            Manifest.permission.ACCESS_COARSE_LOCATION
-        )
-
-        if (
-            permissaoFine != PackageManager.PERMISSION_GRANTED &&
-            permissaoCoarse != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ),
-                LOCATION_PERMISSION_REQUEST_CODE
-            )
-
-            return
-        }
-
-        txtEndereco.text = "Obtendo localização atual..."
-
-        val locationRequest = CurrentLocationRequest.Builder()
-            .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
-            .setMaxUpdateAgeMillis(0)
-            .build()
-
-        fusedLocationClient
-            .getCurrentLocation(locationRequest, null)
-            .addOnSuccessListener { location: Location? ->
-                if (location != null) {
-                    txtEndereco.text =
-                        "Localização encontrada\n\nObtendo endereço..."
-
-                    obterEndereco(
-                        location.latitude,
-                        location.longitude,
-                        txtEndereco
-                    )
-                } else {
-                    txtEndereco.text =
-                        "Não foi possível obter sua localização."
-
-                    Toast.makeText(
-                        this,
-                        "Verifique o GPS e a localização do aparelho.",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            }
-            .addOnFailureListener { erro ->
-                txtEndereco.text = "Erro ao obter localização."
-
-                Toast.makeText(
-                    this,
-                    "Erro de localização: ${erro.message}",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-    }
-
-    // CONVERTER COORDENADAS EM ENDEREÇO
-
-    private fun obterEndereco(
-        latitude: Double,
-        longitude: Double,
-        txtEndereco: TextView
-    ) {
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val geocoder = Geocoder(
-                    this@ReclamacaoActivity,
-                    Locale("pt", "BR")
-                )
-
-                @Suppress("DEPRECATION")
-                val addresses = geocoder.getFromLocation(
-                    latitude,
-                    longitude,
-                    1
-                )
-
-                withContext(Dispatchers.Main) {
-                    if (!addresses.isNullOrEmpty()) {
-                        val address: Address = addresses[0]
-                        val partes = mutableListOf<String>()
-
-                        val rua = address.thoroughfare.orEmpty()
-                        val numero = address.subThoroughfare.orEmpty()
-                        val bairro = address.subLocality.orEmpty()
-                        val cidade = address.locality.orEmpty()
-                        val estado = address.adminArea.orEmpty()
-                        val cep = address.postalCode.orEmpty()
-                        val pais = address.countryName.orEmpty()
-
-                        if (rua.isNotEmpty()) {
-                            partes.add(
-                                if (numero.isNotEmpty()) {
-                                    "$rua, $numero"
-                                } else {
-                                    rua
-                                }
-                            )
-                        }
-
-                        if (bairro.isNotEmpty()) {
-                            partes.add(bairro)
-                        }
-
-                        val municipio = listOf(cidade, estado)
-                            .filter { it.isNotEmpty() }
-                            .joinToString(" - ")
-
-                        if (municipio.isNotEmpty()) {
-                            partes.add(municipio)
-                        }
-
-                        if (cep.isNotEmpty()) {
-                            partes.add("CEP: $cep")
-                        }
-
-                        if (pais.isNotEmpty()) {
-                            partes.add(pais)
-                        }
-
-                        txtEndereco.text =
-                            "Localização encontrada\n\n" +
-                                    partes.joinToString("\n").ifEmpty {
-                                        "Não foi possível identificar o endereço."
-                                    }
-                    } else {
-                        txtEndereco.text =
-                            "Localização encontrada\n\n" +
-                                    "Não foi possível identificar o endereço."
-                    }
-                }
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    txtEndereco.text =
-                        "Localização encontrada\n\n" +
-                                "Não foi possível identificar o endereço."
-
-                    Toast.makeText(
-                        this@ReclamacaoActivity,
-                        "Erro ao identificar o endereço.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        }
-    }
-
-    // PERMISSÃO DE LOCALIZAÇÃO
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(
-            requestCode,
-            permissions,
-            grantResults
-        )
-
-        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
-            if (
-                grantResults.any {
-                    it == PackageManager.PERMISSION_GRANTED
-                }
-            ) {
-                obterLocalizacao(
-                    findViewById(R.id.txtEndereco)
-                )
-            } else {
-                Toast.makeText(
-                    this,
-                    "Permissão de localização negada.",
-                    Toast.LENGTH_LONG
-                ).show()
             }
         }
     }
