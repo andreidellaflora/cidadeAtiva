@@ -2,4 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="ca_background">#FFF9E9</color>
+    <color name="ca_surface">#FFFFFFFF</color>
+    <color name="ca_primary">#FFD32A</color>
+    <color name="ca_primary_dark">#B88700</color>
+    <color name="ca_text">#222222</color>
+    <color name="ca_text_secondary">#666052</color>
+    <color name="ca_field">#FFFDF7</color>
 </resources>

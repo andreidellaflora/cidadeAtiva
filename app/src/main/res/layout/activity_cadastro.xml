@@ -4,13 +4,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAF7FC">
+    android:background="@color/ca_background"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="25dp"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="28dp"
+        android:paddingBottom="28dp"
         android:gravity="center_horizontal">
 
         <TextView
@@ -19,7 +23,7 @@
             android:text="CidadeAtiva"
             android:textSize="30sp"
             android:textStyle="bold"
-            android:textColor="#333333"
+            android:textColor="@color/ca_text"
             android:gravity="center"
             android:layout_marginTop="40dp"/>
 
@@ -29,7 +33,7 @@
             android:text="Criar uma conta"
             android:textSize="21sp"
             android:textStyle="bold"
-            android:textColor="#555555"
+            android:textColor="@color/ca_text_secondary"
             android:gravity="center"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="35dp"/>
@@ -121,9 +125,10 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:text="CRIAR CONTA"
-            android:textColor="@android:color/white"
             android:textStyle="bold"
-            android:backgroundTint="#6E4DB3"/>
+            android:backgroundTint="@color/ca_primary"
+            android:textColor="@color/ca_text"
+            android:stateListAnimator="@null" />
 
         <!-- VOLTAR -->
 
@@ -132,8 +137,9 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:text="VOLTAR"
-            android:textColor="#6E4DB3"
-            android:backgroundTint="#E9E1F5"
+            android:textColor="@color/ca_text_secondary"
+            android:backgroundTint="#FFF0B8"
+            android:stateListAnimator="@null"
             android:layout_marginTop="12dp"/>
 
     </LinearLayout>
