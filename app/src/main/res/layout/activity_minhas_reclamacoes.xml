@@ -7,46 +7,70 @@
     android:orientation="vertical"
     android:background="#FFF9E9">
 
-    <TextView
-        android:id="@+id/btnVoltarMinhasReclamacoes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="14dp"
-        android:text="←  voltar"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:textColor="#292929"
-        android:gravity="center"
-        android:clickable="true"
-        android:focusable="true"
-        android:paddingStart="14dp"
-        android:paddingEnd="14dp"
-        android:paddingTop="9dp"
-        android:paddingBottom="9dp"
-        android:background="#FFF0B8" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        android:background="@android:color/transparent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.14"
+            android:contentDescription="CidadeAtiva"
+            android:scaleType="centerCrop"
+            android:src="@drawable/cidadeativa_logo_corrigido" />
+
+        <TextView
+            android:id="@+id/btnVoltarMinhasReclamacoes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|start"
+            android:layout_margin="12dp"
+            android:background="#FFF0B8"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:paddingStart="14dp"
+            android:paddingTop="9dp"
+            android:paddingEnd="14dp"
+            android:paddingBottom="9dp"
+            android:text="←  voltar"
+            android:textColor="#292929"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/titulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Minhas reclamações"
+            android:textColor="#222222"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/subtitulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:gravity="center"
+            android:paddingBottom="18dp"
+            android:text="Veja os problemas registrados pela população"
+            android:textColor="#666052"
+            android:textSize="14sp" />
+    </FrameLayout>
 
     <TextView
-        android:id="@+id/titulo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Minhas reclamações"
-        android:textSize="27sp"
-        android:textStyle="bold"
-        android:textColor="#222222"
+        android:layout_height="18dp"
+        android:background="#FFD32A"
         android:gravity="center"
-        android:paddingTop="12dp"
-        android:paddingBottom="5dp"/>
-
-    <TextView
-        android:id="@+id/subtitulo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Veja os problemas registrados pela população"
-        android:textSize="14sp"
-        android:textColor="#666052"
-        android:gravity="center"
-        android:paddingBottom="12dp"/>
+        android:singleLine="true"
+        android:text="///  ///  ///  ///  ///  ///  ///  ///"
+        android:textColor="#FFF8D8"
+        android:textSize="11sp" />
 
     <!-- FILTROS -->
     <HorizontalScrollView
