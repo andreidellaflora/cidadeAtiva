@@ -206,7 +206,7 @@
                 android:layout_height="82dp"
                 android:layout_marginEnd="18dp"
                 android:gravity="center"
-                android:text="📍"
+                android:text="📌"
                 android:textSize="43sp"
                 android:background="@drawable/bg_icon_amarelo" />
 
@@ -342,7 +342,7 @@
                 android:layout_height="82dp"
                 android:layout_marginEnd="18dp"
                 android:gravity="center"
-                android:text="♙"
+                android:text="👤"
                 android:textColor="#222222"
                 android:textSize="48sp"
                 android:background="@drawable/bg_icon_amarelo" />
